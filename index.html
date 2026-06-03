@@ -152,6 +152,7 @@
   table.kpi-table .neg { color: #c44d4d; font-weight: 800; }
   table.kpi-table .row-highlight { background: var(--yellow-pale); }
   table.kpi-table .row-highlight td { font-weight: 800; color: var(--text); }
+  table.kpi-table .row-event td:last-child { color: var(--orange-deep); font-weight: 700; }
 
   /* === Story callout === */
   .story {
@@ -204,6 +205,84 @@
   .formula .eq { color: var(--text-3); margin: 0 12px; }
   .formula .sub { display: block; font-size: 12px; font-weight: 600; color: var(--text-3); margin-top: 6px; letter-spacing: 0; }
 
+  /* === Scenario cards === */
+  .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 720px) { .scenario-grid { grid-template-columns: 1fr; } }
+  .scenario-card {
+    background: #fff; border: var(--border); border-radius: var(--r-lg);
+    box-shadow: var(--card-shadow); padding: 22px 24px;
+  }
+  .scenario-card.bull { border-top: 4px solid var(--green); }
+  .scenario-card.base { border-top: 4px solid var(--orange); }
+  .scenario-card.bear { border-top: 4px solid var(--rose); }
+  .scenario-card .tag {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
+    padding: 3px 10px; border-radius: 999px; display: inline-block; margin-bottom: 10px;
+  }
+  .scenario-card.bull .tag { background: rgba(107, 201, 160, 0.16); color: #2b8761; }
+  .scenario-card.base .tag { background: var(--orange-pale); color: var(--orange-deep); }
+  .scenario-card.bear .tag { background: rgba(232, 107, 107, 0.14); color: #c44d4d; }
+  .scenario-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 900; }
+  .scenario-card .rate { font-size: 28px; font-weight: 900; letter-spacing: -0.02em; color: var(--text); line-height: 1.1; margin-bottom: 8px; }
+  .scenario-card p { margin: 0 0 6px; color: var(--text-2); font-size: 13px; line-height: 1.7; }
+  .scenario-card .est { margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(60, 40, 10, 0.1); }
+  .scenario-card .est-label { font-size: 11px; color: var(--text-3); font-weight: 700; letter-spacing: 0.05em; }
+  .scenario-card .est-value { font-size: 14px; font-weight: 800; color: var(--text); }
+
+  /* === Timeline === */
+  .timeline { position: relative; padding-left: 36px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 14px; top: 8px; bottom: 8px;
+    width: 3px; background: linear-gradient(180deg, var(--orange) 0%, var(--orange-light) 100%);
+    border-radius: 2px;
+  }
+  .tl-item { position: relative; padding-bottom: 22px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -30px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--orange); border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--orange);
+  }
+  .tl-item.milestone::before { background: #fff; border: 3px solid var(--orange); width: 18px; height: 18px; left: -32px; top: 4px; box-shadow: 0 0 0 3px var(--orange-deep); }
+  .tl-card {
+    background: #fff; border: var(--border); border-radius: var(--r-md);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+  }
+  .tl-item.milestone .tl-card {
+    background: linear-gradient(135deg, #fff 0%, var(--orange-pale) 100%);
+    border: 1px solid rgba(255, 150, 0, 0.2);
+  }
+  .tl-card .when {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.06em; color: var(--orange-deep);
+    background: var(--orange-pale); display: inline-block; padding: 2px 10px; border-radius: 999px;
+  }
+  .tl-card h4 { margin: 8px 0 4px; font-size: 15px; font-weight: 900; }
+  .tl-card .what { color: var(--text-2); font-size: 13px; line-height: 1.7; margin: 0 0 6px; }
+  .tl-card .metric {
+    display: inline-flex; gap: 14px; flex-wrap: wrap;
+    margin-top: 6px; padding-top: 6px;
+    border-top: 1px dashed rgba(60, 40, 10, 0.1);
+    font-size: 12px; color: var(--text-3); font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-card .metric strong { color: var(--text); font-weight: 900; }
+
+  /* === Milestone strip === */
+  .milestone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .milestone-card {
+    background: #fff; border: var(--border); border-radius: var(--r-md);
+    box-shadow: var(--card-shadow); padding: 16px 18px;
+  }
+  .milestone-card .level {
+    font-size: 11px; font-weight: 800; color: var(--orange-deep); letter-spacing: 0.05em;
+  }
+  .milestone-card .when {
+    font-size: 22px; font-weight: 900; color: var(--text); margin: 4px 0 2px;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+  }
+  .milestone-card .delta { font-size: 11px; color: var(--text-3); font-weight: 600; }
+
   /* === Footer === */
   footer.page {
     margin-top: 64px; padding-top: 24px;
@@ -234,11 +313,12 @@
 
   <header class="page">
     <h1 class="t-hero">Palmu の <span class="accent">DAU・PU・ARPPU</span> を<br>HR目線でやさしく読み解く</h1>
-    <p class="lede">Palmu の事業状況を「人数」と「単価」で語れるようになるための入門ガイド。前年同月との比較から、いま何が起きていて、HR としてどう語れるかまでまとめました。</p>
+    <p class="lede">Palmu の事業状況を「人数」と「単価」で語れるようになるための入門ガイド。前年同月との比較・PU 成長率の検証・3年半の売上ストーリーまで、勉強会で使える形に整理しました。</p>
     <div class="meta-row">
       <span class="pill pill-orange">HR向け勉強会</span>
       <span class="pill pill-yellow">YoY比較</span>
       <span class="pill pill-teal">2026-05締</span>
+      <span class="pill pill-purple">3年半ヒストリー</span>
       <span class="pill">URL限定共有</span>
     </div>
   </header>
@@ -393,6 +473,96 @@
 
   <div class="sec-head">
     <span class="num">5</span>
+    <h2>谷垣さんの仮説を数字で検証</h2>
+    <p class="sub">「PU 12-13K で単月黒字、月+2% で伸びている」は本当か</p>
+  </div>
+
+  <div class="story" style="border-left-color: var(--blue);">
+    <h3>谷垣さんの仮説</h3>
+    <p>「ここから単月黒字を安定化させるには <strong>PU 12,000〜13,000</strong> が必要。PU は <strong>毎月前月比 約2%</strong> ずつ伸びている」</p>
+  </div>
+
+  <div class="table-wrap" style="margin-top: 18px;">
+    <table class="kpi-table">
+      <thead>
+        <tr><th>月</th><th class="num">PU</th><th class="num">前月比（MoM）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2025-06</td><td class="num">7,723</td><td class="num">—</td></tr>
+        <tr><td>2025-07</td><td class="num">8,123</td><td class="num pos">+5.18%</td></tr>
+        <tr><td>2025-08</td><td class="num">8,466</td><td class="num pos">+4.22%</td></tr>
+        <tr><td>2025-09</td><td class="num">8,992</td><td class="num pos">+6.21%</td></tr>
+        <tr><td>2025-10</td><td class="num">9,430</td><td class="num pos">+4.87%</td></tr>
+        <tr><td>2025-11</td><td class="num">9,898</td><td class="num pos">+4.96%</td></tr>
+        <tr><td>2025-12</td><td class="num">9,975</td><td class="num pos">+0.78%</td></tr>
+        <tr><td>2026-01</td><td class="num">9,849</td><td class="num neg">-1.26%</td></tr>
+        <tr><td>2026-02</td><td class="num">9,641</td><td class="num neg">-2.11%</td></tr>
+        <tr><td>2026-03</td><td class="num">10,123</td><td class="num pos">+5.00%</td></tr>
+        <tr><td>2026-04</td><td class="num">10,198</td><td class="num pos">+0.74%</td></tr>
+        <tr class="row-highlight"><td>2026-05</td><td class="num">10,373</td><td class="num pos">+1.72%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box" style="margin-top: 18px;">
+    <h4>検証結果：半分正しく、半分は注意が必要</h4>
+    <ul>
+      <li><strong>12ヶ月通しの平均（CAGR）は +2.72%/月</strong> — 「月+2%」はやや上振れた範囲でほぼ正しい</li>
+      <li>ただし「<strong>毎月キレイに2%ずつ</strong>」ではなく、月ごとに -2.1% 〜 +6.2% の振れ幅あり</li>
+      <li><strong>直近6ヶ月の平均は +0.81%/月まで減速</strong>。1月・2月はマイナスにも触れた</li>
+      <li>直近3ヶ月平均は +2.49%/月 — ペース回復の兆しはあるが、過去の勢いには戻り切っていない</li>
+    </ul>
+  </div>
+
+  <h3 style="margin: 28px 4px 14px; font-size: 18px; font-weight: 900;">PU 12,000〜13,000 到達はいつか（試算）</h3>
+
+  <div class="scenario-grid">
+    <div class="scenario-card bull">
+      <span class="tag">強気シナリオ</span>
+      <h3>過去ペース維持</h3>
+      <div class="rate">+2.7%/月</div>
+      <p>12ヶ月CAGR水準を維持できれば</p>
+      <div class="est">
+        <div class="est-label">12,000人到達</div>
+        <div class="est-value">約5ヶ月後（2026-10）</div>
+        <div class="est-label" style="margin-top: 6px;">13,000人到達</div>
+        <div class="est-value">約8ヶ月後（2027-01）</div>
+      </div>
+    </div>
+    <div class="scenario-card base">
+      <span class="tag">基準シナリオ</span>
+      <h3>谷垣さん想定</h3>
+      <div class="rate">+2.0%/月</div>
+      <p>「月+2%」がそのまま続いた場合</p>
+      <div class="est">
+        <div class="est-label">12,000人到達</div>
+        <div class="est-value">約7ヶ月後（2026-12）</div>
+        <div class="est-label" style="margin-top: 6px;">13,000人到達</div>
+        <div class="est-value">約11ヶ月後（2027-04）</div>
+      </div>
+    </div>
+    <div class="scenario-card bear">
+      <span class="tag">弱気シナリオ</span>
+      <h3>直近トレンド継続</h3>
+      <div class="rate">+0.8%/月</div>
+      <p>直近6ヶ月の減速が続いた場合</p>
+      <div class="est">
+        <div class="est-label">12,000人到達</div>
+        <div class="est-value">約18ヶ月後（2027-11）</div>
+        <div class="est-label" style="margin-top: 6px;">13,000人到達</div>
+        <div class="est-value">約28ヶ月後（2028-09）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="story" style="margin-top: 24px;">
+    <h3>整理：谷垣さんの数字をHR的にどう受け止めるか</h3>
+    <p><strong>12ヶ月平均では +2.7% で想定通り。ただし直近6ヶ月は +0.8% に鈍化</strong>している、というのが正確な姿です。</p>
+    <p>「予定通りに黒字化するには、直近の減速トレンドから過去ペースへ <strong>復帰</strong> する施策が必要」という整理になります。採用面でも「事業の現フェーズはコアファン拡大の踏ん張りどころ」と語れます。</p>
+  </div>
+
+  <div class="sec-head">
+    <span class="num">6</span>
     <h2>12ヶ月の推移</h2>
     <p class="sub">トレンドで見る</p>
   </div>
@@ -427,7 +597,206 @@
   </div>
 
   <div class="sec-head">
-    <span class="num">6</span>
+    <span class="num">7</span>
+    <h2>3年半の売上ストーリー年表</h2>
+    <p class="sub">何がきっかけで Palmu は伸びてきたか</p>
+  </div>
+
+  <div class="story">
+    <h3>結論</h3>
+    <p>2022年9月の Palmu α版リリースから、<strong>「基盤作り → ランクシステム導入で課金ループ確立 → Web決済・ホーム改修で大型加速 → 3周年で熱量強化 → 単月黒字化」</strong>という4段階で伸びてきました。</p>
+  </div>
+
+  <h3 style="margin: 32px 4px 14px; font-size: 18px; font-weight: 900;">売上規模の節目（初めて○○円突破）</h3>
+
+  <div class="milestone-grid">
+    <div class="milestone-card">
+      <div class="level">月次 1M 円</div>
+      <div class="when">2022-12</div>
+      <div class="delta">リリース3ヶ月後</div>
+    </div>
+    <div class="milestone-card">
+      <div class="level">月次 10M 円</div>
+      <div class="when">2023-11</div>
+      <div class="delta">1周年（2023-09）の2ヶ月後</div>
+    </div>
+    <div class="milestone-card">
+      <div class="level">月次 50M 円</div>
+      <div class="when">2024-06</div>
+      <div class="delta">ランクシステム導入Q</div>
+    </div>
+    <div class="milestone-card">
+      <div class="level">月次 100M 円</div>
+      <div class="when">2024-10</div>
+      <div class="delta">Web決済導入後</div>
+    </div>
+    <div class="milestone-card">
+      <div class="level">月次 150M 円</div>
+      <div class="when">2025-06</div>
+      <div class="delta">前月比 +35% の大ジャンプ</div>
+    </div>
+    <div class="milestone-card">
+      <div class="level">月次 200M 円</div>
+      <div class="when">2025-08</div>
+      <div class="delta">3周年の直前</div>
+    </div>
+    <div class="milestone-card" style="background: linear-gradient(135deg, #fff 0%, var(--yellow-pale) 100%); border: 1px solid rgba(245, 215, 110, 0.5);">
+      <div class="level">月次 250M 円</div>
+      <div class="when">2025-12</div>
+      <div class="delta">単月黒字化と同月達成</div>
+    </div>
+  </div>
+
+  <h3 style="margin: 40px 4px 18px; font-size: 18px; font-weight: 900;">主要イベント年表</h3>
+
+  <div class="timeline">
+    <div class="tl-item milestone">
+      <div class="tl-card">
+        <span class="when">2022年9月</span>
+        <h4>Palmu α版（iOS）リリース</h4>
+        <p class="what">「次世代タレント共創」のコンセプトでスタート。事業ゼロ地点。</p>
+        <div class="metric">売上 <strong>¥24K</strong> · PU <strong>12人</strong> · MAU <strong>289人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2022年10月〜2023年6月</span>
+        <h4>基盤作り・仮説検証期（約1年）</h4>
+        <p class="what">「事業展開のための基盤作りと仮説検証に1年程度の時間を使った」（社内資料より）。地道に積み上げのフェーズ。</p>
+        <div class="metric">2023-06時点: 売上 <strong>¥4.7M</strong> · PU <strong>342人</strong> · MAU <strong>4,522人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2023年7月</span>
+        <h4>Android アプリリリース</h4>
+        <p class="what">プラットフォーム拡張。iOS+Android で広い層へ。</p>
+        <div class="metric">売上 <strong>¥7.6M</strong>（前月 +60%） · PU <strong>401人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2023年8月</span>
+        <h4>報酬制度ver2.1：SSランク（時給3,000円）追加 ＋ TOPライバーボーナス</h4>
+        <p class="what">ライバー報酬上限の引き上げ＝大型ライバーの定着を狙う。</p>
+        <div class="metric">売上 <strong>¥8.3M</strong> · PU <strong>448人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item milestone">
+      <div class="tl-card">
+        <span class="when">2024年4〜6月（FY24-1Q）</span>
+        <h4>★ ランクシステム導入</h4>
+        <p class="what">保証ボーダー・スキップカード・プロフィール背景・ライバー検索などを同時投入。<strong>サービス内ゲームサイクルの確立</strong>。Pococha より緩い保証条件で定着を促進。</p>
+        <div class="metric">期末（6月）売上 <strong>¥50.3M</strong>（3ヶ月で +51%） · PU <strong>2,990人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item milestone">
+      <div class="tl-card">
+        <span class="when">2024年7〜9月（FY24-2Q）</span>
+        <h4>★ Webバリューチャージ（Web決済）導入 ＋ LINE連携</h4>
+        <p class="what">App Store/Google Play 経由の <strong>30% 手数料を回避</strong>する Web 決済を導入。<strong>PL改善の最大級の打ち手</strong>。LINE連携でログイン体験も改善。</p>
+        <div class="metric">期末（9月）売上 <strong>¥91.3M</strong>（3ヶ月で +82%） · PU <strong>5,477人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2024年10〜12月（FY24-3Q）</span>
+        <h4>ライブスコア・配信ラベル・ホーム画面改修</h4>
+        <p class="what">マッチング向上（リスナーが配信を選びやすく）。ランクシステムも細分化。</p>
+        <div class="metric">12月売上 <strong>¥137.1M</strong> · ARPPU <strong>¥22,248</strong>（前月比 +24%）</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2024年12月31日</span>
+        <h4>Palmu 紅白お年玉合戦 2024-2025</h4>
+        <p class="what">全員参加型チーム対抗イベント。「普段イベントに参加しない人にも年末年始のお祭りとして」。</p>
+        <div class="metric">12月→1月の MoM <strong>+26%</strong>（役員定例議事録）</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2025年1月〜3月（FY24-4Q）</span>
+        <h4>アプリ内課金値上げ ＋ ホーム改修 ＋ 趣味タグ ＋ ダイヤのコイン交換</h4>
+        <p class="what">ARPPU 向上＋マッチング高度化＋PL改善。直後の1月は反動で売上 -14% も、3月には 143M で V字回復。</p>
+        <div class="metric">3月売上 <strong>¥143.3M</strong> · PU <strong>7,423人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item milestone">
+      <div class="tl-card">
+        <span class="when">2025年6月</span>
+        <h4>★ 売上が一段ジャンプ：178M（前月比 +35%）</h4>
+        <p class="what">5月 132M → 6月 178M の急上昇。ARPPU が <strong>¥17,926 → ¥23,073</strong> に上振れたのが主因。</p>
+        <div class="metric">売上 <strong>¥178.2M</strong> · PU <strong>7,723人</strong> · ARPPU <strong>¥23,073</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2025年9月10日</span>
+        <h4>Palmu 3周年 — 記念セール・限定ギフト・Anniversary メッセージ</h4>
+        <p class="what">「共創」テーマでコミュニティ熱量を上げる露出施策。YouTube ライブ・モザイクアート企画。</p>
+        <div class="metric">9月売上 <strong>¥191.1M</strong> · PU <strong>8,992人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2025年10月</span>
+        <h4>ランクロジック調整</h4>
+        <p class="what">「コミュニティの旗印として正しく機能させる」目的で見直し。</p>
+        <div class="metric">10月売上 <strong>¥195.7M</strong> · PU <strong>9,430人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2025年11月</span>
+        <h4>スコアチャレンジ報酬制度（ライバー向け）開始</h4>
+        <p class="what">ランキングボーナス・ポイント達成ボーナスでARPPU／ライバー稼働向上。</p>
+        <div class="metric">11月売上 <strong>¥212.3M</strong> · PU <strong>9,898人</strong></div>
+      </div>
+    </div>
+    <div class="tl-item milestone">
+      <div class="tl-card">
+        <span class="when">2025年12月</span>
+        <h4>★★ 単月黒字化達成（事業立上げ後3年半）</h4>
+        <p class="what">月次売上 <strong>262M円・営業利益 +6M円</strong>。3年3ヶ月かけて到達した節目。</p>
+        <div class="metric">売上 <strong>¥255.7M</strong> · PU <strong>9,975人</strong> · ARPPU <strong>¥25,633</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-card">
+        <span class="when">2026年4月〜（FY26-1Q）</span>
+        <h4>ランクv2.0 ／ P/Eスタイル ／ Palmuシード（IPO目標へ）</h4>
+        <p class="what">「多様性」戦略で Palmu 固有の武器を磨く。<strong>FY26 通期黒字化 ＋ FY27中の IPO</strong> を目指す。</p>
+        <div class="metric">5月売上 <strong>¥265.5M</strong> · PU <strong>10,373人</strong> · ARPPU <strong>¥25,594</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin: 40px 4px 18px; font-size: 18px; font-weight: 900;">年度別サマリー</h3>
+
+  <div class="table-wrap">
+    <table class="kpi-table">
+      <thead>
+        <tr><th>年度</th><th>テーマ</th><th class="num">期末月次売上</th><th class="num">PU</th><th class="num">ARPPU</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2022年（リリース年）</td><td>α版立ち上げ・仮説の種まき</td><td class="num">¥1.5M</td><td class="num">118人</td><td class="num">¥12,816</td></tr>
+        <tr><td>2023年</td><td>基盤作り・Android展開・SSランク</td><td class="num">¥14.3M</td><td class="num">912人</td><td class="num">¥15,715</td></tr>
+        <tr class="row-highlight"><td>2024年</td><td>ランクシステム・Web決済・ホーム改修（爆発期）</td><td class="num">¥137.1M</td><td class="num">6,164人</td><td class="num">¥22,248</td></tr>
+        <tr class="row-highlight"><td>2025年</td><td>課金体験改善・3周年・単月黒字化</td><td class="num">¥255.7M</td><td class="num">9,975人</td><td class="num">¥25,633</td></tr>
+        <tr><td>2026年（直近）</td><td>ランクv2.0・多様性戦略（IPOへ）</td><td class="num">¥265.5M</td><td class="num">10,373人</td><td class="num">¥25,594</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="story" style="margin-top: 24px; border-left-color: var(--teal);">
+    <h3>この年表から学べること（HRとして）</h3>
+    <p><strong>「一気に伸びた」のではなく、各四半期で1つずつ施策を積み上げてきた</strong>のが Palmu の事業ストーリー。とくに <strong>2024年が爆発期</strong>（売上 10倍）で、その立役者は <strong>ランクシステム（4-6月）と Webバリューチャージ（7-9月）</strong>。</p>
+    <p>採用候補者には「3年半かけて月次黒字に到達した粘り強さ」「次は IPO を目指すフェーズ」と語れます。同時に、<strong>毎四半期ごとに事業が変化している</strong>＝ 入社後も常に新しい挑戦がある会社、というメッセージにもなります。</p>
+  </div>
+
+  <div class="sec-head">
+    <span class="num">8</span>
     <h2>HR として押さえてほしい3つのポイント</h2>
     <p class="sub">採用や1on1で語れるように</p>
   </div>
@@ -436,22 +805,22 @@
     <div class="takeaway-card">
       <span class="tag">採用候補者と話すとき</span>
       <h3>「売上は前年比2倍、コアファンも単価も1.4倍」と語れる</h3>
-      <p>MAU が横ばいの中での成長なので、「派手な拡大」ではなく <strong>深化型の成長</strong> フェーズと表現できます。地に足のついた事業ステージ感を伝えやすい数字。</p>
+      <p>MAU が横ばいの中での成長なので、「派手な拡大」ではなく <strong>深化型の成長</strong> フェーズと表現できます。<strong>3年半で単月黒字化に到達</strong>した粘り強さも語れる材料。</p>
     </div>
     <div class="takeaway-card">
       <span class="tag blue">組織として何が効いているか</span>
       <h3>新規獲得より「既存ユーザー体験の改善」が効いている</h3>
-      <p>プロダクト開発・コミュニティ運営・ライバー支援といった、<strong>体験の質を上げる職種</strong> の重要度が高い局面。HR として、これらのポジションの優先度を意識できます。</p>
+      <p>ランクシステム・Web決済・ホーム改修など、<strong>体験の質を上げる職種</strong> の重要度が高い局面。HR として、これらのポジションの優先度を意識できます。</p>
     </div>
     <div class="takeaway-card">
       <span class="tag teal">次の課題</span>
-      <h3>DAU が直近で漸減（前月比 -2.4%）</h3>
-      <p>「来てくれる頻度」をどう上げるかが次の論点。<strong>リエンゲージメント施策</strong>（通知・イベント・コミュニティ運営）が事業課題として浮上してきています。</p>
+      <h3>PU 成長が直近で鈍化（+2.7%→+0.8%）</h3>
+      <p>「来てくれる頻度」と「課金転換」のテコ入れが必要なフェーズ。<strong>リエンゲージメント施策</strong>（通知・イベント・コミュニティ運営）が事業課題として浮上しています。</p>
     </div>
   </div>
 
   <div class="sec-head">
-    <span class="num">7</span>
+    <span class="num">9</span>
     <h2>勉強会での想定Q&A・注意点</h2>
     <p class="sub">質問に備えて</p>
   </div>
@@ -467,9 +836,14 @@
     </ul>
   </div>
 
+  <div class="note-box" style="margin-top: 16px;">
+    <h4>「PU 月+2%」の取り扱いについて</h4>
+    <p>谷垣さん発の「PU は月+2%ずつ伸びている」は、<strong>12ヶ月平均としてはほぼ正しい（+2.7%）</strong> ですが、<strong>毎月一定の2%ではない</strong>こと、<strong>直近6ヶ月は +0.8% に減速している</strong>ことに注意。勉強会で「毎月2%」と単純化して語るより、「平均は2%、ただし足元は鈍化」と正確に伝える方が信頼されます。</p>
+  </div>
+
   <footer class="page">
     <span>Palmu KPI 勉強会｜HR向けガイド</span>
-    <span class="src">Source: palmu-prod.report.monthly_kpi / 2026-06-03</span>
+    <span class="src">Source: palmu-prod.report.monthly_kpi / Light版羅針盤Draft / 2026-06-03</span>
   </footer>
 
 </div>
